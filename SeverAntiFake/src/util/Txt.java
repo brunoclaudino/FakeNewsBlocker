@@ -14,11 +14,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.News;
 import model.Server;
 
 /**
  * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Bruno Claudino Matias
  */
 public class Txt {
     private BufferedReader read;
@@ -47,5 +48,26 @@ public class Txt {
             Logger.getLogger(Txt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void ReadNews(){
+        try {
+            read = new BufferedReader(new FileReader(new File("noticias.txt")));
+            if(controller.Talker.debug){
+                System.out.println("Começou a ler as notícias");
+            }
+            String line = read.readLine();
+            while(line != null){
+                News temp = new News();
+                String[] info = line.split("/");
+                temp.setId(Integer.parseInt(info[0]));
+                temp.setTitle(info[1]);
+                temp.setRealAvg(Float.parseFloat(info[2]));
+                controller.Talker.news.add(temp);
+                line = read.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Txt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Txt.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
