@@ -6,12 +6,16 @@
 
 package controller;
 
+import java.util.LinkedList;
+import model.Server;
+
 /**
  * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author
  */
 public class Talker {
-    public static Linked
+    public static boolean debug = true;
+    public static LinkedList<Server> servers = new LinkedList();
     
     public static void main(String[] args) {
         
