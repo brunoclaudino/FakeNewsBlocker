@@ -19,6 +19,7 @@ import model.Server;
 public class Talker implements RemoteMethods{
     public static boolean debug = true;
     public static LinkedList<Server> servers = new LinkedList();
+    public static LinkedList<Boolean> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
     
     public static void main(String[] args) {
@@ -36,6 +37,7 @@ public class Talker implements RemoteMethods{
             }
         }
         temp.addAvaliation(avaliation);
+        
         return temp.getAvg();
     }
 
