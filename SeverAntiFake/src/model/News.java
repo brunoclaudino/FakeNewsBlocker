@@ -18,6 +18,15 @@ public class News {
     private float realAvg;
     public LinkedList<Float> avaliations = new LinkedList();
     
+    public News(int newsId, String newsTitle){
+        this.id = newsId;
+        this.title = newsTitle;
+    }
+    
+    public News(){
+        
+    }
+    
     public void addAvaliation(Float points){ //Adiciona na lista uma avaliação
         this.avaliations.add(points);
     }
