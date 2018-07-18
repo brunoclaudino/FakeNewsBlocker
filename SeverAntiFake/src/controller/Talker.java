@@ -6,8 +6,15 @@
 
 package controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.News;
 import model.RemoteMethods;
 import model.Server;
@@ -22,9 +29,26 @@ public class Talker implements RemoteMethods{
     public static LinkedList<Server> servers = new LinkedList();
     public static LinkedList<VotePaper> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
+    private final Controller controller;
     
-    public static void main(String[] args) {
-        
+    public Talker (Controller c){
+        this.controller = c;
+    }
+    
+    public void runServer() {
+        try {
+            String name = "server";
+            System.setProperty("java.rmi.server.hostname", "192.168.1.6");  
+            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+            RemoteMethods remote = new Talker(controller);
+            RemoteMethods stub = (RemoteMethods) UnicastRemoteObject.exportObject(remote, 0);
+            registry.rebind(name, stub);
+            System.out.println("Servidor rodando no IP " + InetAddress.getLocalHost().getHostAddress() + " e na porta " + Registry.REGISTRY_PORT);
+        } catch (RemoteException e) {
+            System.out.println ("Erro no servidor: " + e.getMessage()); 
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Talker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -38,7 +62,10 @@ public class Talker implements RemoteMethods{
             }
         }
         temp.addAvaliation(avaliation);
+<<<<<<< HEAD
         //implementar quando a média for menor que o desejado
+=======
+>>>>>>> f4c4baeb874ba9537f1da76adda819628c26c1f9
         return temp.getAvg();
     }
 
