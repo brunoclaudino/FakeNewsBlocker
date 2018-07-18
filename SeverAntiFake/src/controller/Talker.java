@@ -86,7 +86,7 @@ public class Talker implements RemoteMethods{
                  if(isTrue.size()<fake.size() || isTrue.size() == fake.size()){
                 //implementar smtp
             }
-                for(int i = 0; i<controller.Talker.conf.size();i++){
+                for(i = 0; i<conf.size();i++){
                     if(conf.get(i).getId() == id){
                         conf.remove(i);
                     }
