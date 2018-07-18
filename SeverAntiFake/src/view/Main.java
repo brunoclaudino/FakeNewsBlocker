@@ -6,6 +6,9 @@
 package view;
 
 import controller.Talker;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -15,15 +18,17 @@ import java.util.Scanner;
  */
 public class Main {
     public static LinkedList<String> serverNames = new LinkedList();
-    private static final Talker t = new Talker();;
+    private static final Talker t = new Talker();
+    private BufferedReader in;
     public static void main(String[] args) {
-        System.out.println("Digite o nome do Servidor para iniciar");
-        Scanner in = new Scanner(System.in);
-        serverNames.add(in.next());
-        System.out.println("Digite o nome do server 2");
-        serverNames.add(in.next());
-        System.out.println("Digite o nome");
-        serverNames.add(in.next());
+        
+//        System.out.println("Digite o nome do Servidor para iniciar");
+//        Scanner in = new Scanner(System.in);
+//        serverNames.add(in.next());
+//        System.out.println("Digite o nome do server 2");
+//        serverNames.add(in.next());
+//        System.out.println("Digite o nome");
+//        serverNames.add(in.next());
         t.runServer(serverNames.getFirst());
     }
 }

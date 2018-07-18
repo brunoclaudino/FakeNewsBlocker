@@ -33,7 +33,7 @@ public class Consensus implements Runnable{
                 System.out.println("Instânciou interface de métodos | Classe consensus - Método Run");
             }
             Registry registry = LocateRegistry.getRegistry();
-            RemoteMethods service = (RemoteMethods) Naming.lookup(view.Main.serverNames.get(serverAddress));
+            RemoteMethods service = (RemoteMethods) Naming.lookup("//"+controller.Talker.servers.get(serverAddress).getAddress()+"/"+controller.Talker.servers.get(serverAddress).getName());
             if(controller.Talker.debug){
                 System.out.println("lookup está funcionando");
             }

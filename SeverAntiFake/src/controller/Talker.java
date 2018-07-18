@@ -44,7 +44,7 @@ public class Talker implements RemoteMethods {
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             RemoteMethods remote = new Talker();
             RemoteMethods stub = (RemoteMethods) UnicastRemoteObject.exportObject(remote, 0);
-            registry.rebind(name, stub);
+            registry.rebind(servers.getFirst().getName(), stub);
             System.out.println("Servidor rodando no IP " + InetAddress.getLocalHost().getHostAddress() + " e na porta " + Registry.REGISTRY_PORT);
         } catch (RemoteException e) {
             System.out.println("Erro no servidor: " + e.getMessage());
