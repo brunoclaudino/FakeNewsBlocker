@@ -8,11 +8,24 @@ package model;
 
 /**
  * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class VotePaper {
     private int id;
     private boolean innocent;
-    
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isInnocent() {
+        return innocent;
+    }
+
+    public void setInnocent(boolean innocent) {
+        this.innocent = innocent;
+    }
 }

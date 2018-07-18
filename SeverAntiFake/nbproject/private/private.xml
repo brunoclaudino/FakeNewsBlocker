@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/model/News.java</file>
             <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/model/RemoteMethods.java</file>
+            <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/model/VotePaper.java</file>
             <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/util/Txt.java</file>
+            <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/util/Consensus.java</file>
             <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/model/Server.java</file>
             <file>file:/C:/Users/bruni/Documents/GitHub/FakeNewsBlocker/SeverAntiFake/src/controller/Talker.java</file>
         </group>

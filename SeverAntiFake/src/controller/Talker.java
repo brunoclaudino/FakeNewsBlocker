@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import model.News;
 import model.RemoteMethods;
 import model.Server;
+import model.VotePaper;
 
 /**
  * 
@@ -19,7 +20,7 @@ import model.Server;
 public class Talker implements RemoteMethods{
     public static boolean debug = true;
     public static LinkedList<Server> servers = new LinkedList();
-    public static LinkedList<Boolean> conf = new LinkedList();
+    public static LinkedList<VotePaper> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
     
     public static void main(String[] args) {
@@ -37,7 +38,7 @@ public class Talker implements RemoteMethods{
             }
         }
         temp.addAvaliation(avaliation);
-        
+        //implementar quando a média for menor que o desejado
         return temp.getAvg();
     }
 
