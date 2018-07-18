@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.News;
@@ -19,7 +20,7 @@ import model.Server;
 
 /**
  * 
- * @author Bruno Claudino Matias
+ * @author
  */
 public class Txt {
     private BufferedReader read;
@@ -27,7 +28,7 @@ public class Txt {
     
     public void ReadServers(){
         try {
-            read = new BufferedReader(new FileReader(new File("servers.txt")));
+            read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/controller/servers.txt")));
             if(controller.Talker.debug){
                 System.out.println("Começou a ler arquivo de texto");
             }
@@ -50,7 +51,7 @@ public class Txt {
     }
     public void ReadNews(){
         try {
-            read = new BufferedReader(new FileReader(new File("news.txt")));
+            read = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/controller/news.txt")));
             if(controller.Talker.debug){
                 System.out.println("Começou a ler as notícias");
             }
