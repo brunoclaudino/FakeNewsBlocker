@@ -37,9 +37,9 @@ public class Talker implements RemoteMethods {
         loadInfos();
     }
 
-    public void runServer(String name) {
+    public void runServer() {
         try {
-            //String name = "server";
+            String name = servers.getFirst().getName();
             System.setProperty("java.rmi.server.hostname", "192.168.1.6");
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             RemoteMethods remote = new Talker();
