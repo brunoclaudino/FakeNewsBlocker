@@ -5,15 +5,15 @@
  */
 package view;
 
-import controller.Controller;
+import controller.Talker;
 
 /**
  *
  * @author lablenda2
  */
 public class Main {
-    private static final Controller controllerConstante = new Controller();;
+    private static final Talker t = new Talker();;
     public static void main(String[] args) {
-        
+        t.runServer();
     }
 }

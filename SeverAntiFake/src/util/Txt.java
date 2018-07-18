@@ -50,14 +50,14 @@ public class Txt {
     }
     public void ReadNews(){
         try {
-            read = new BufferedReader(new FileReader(new File("noticias.txt")));
+            read = new BufferedReader(new FileReader(new File("news.txt")));
             if(controller.Talker.debug){
                 System.out.println("Começou a ler as notícias");
             }
             String line = read.readLine();
             while(line != null){
                 News temp = new News();
-                String[] info = line.split("/");
+                String[] info = line.split(";");
                 temp.setId(Integer.parseInt(info[0]));
                 temp.setTitle(info[1]);
                 temp.setRealAvg(Float.parseFloat(info[2]));

@@ -6,6 +6,10 @@
 
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -19,6 +23,7 @@ import model.News;
 import model.RemoteMethods;
 import model.Server;
 import model.VotePaper;
+import util.Txt;
 
 /**
  * 
@@ -29,10 +34,9 @@ public class Talker implements RemoteMethods{
     public static LinkedList<Server> servers = new LinkedList();
     public static LinkedList<VotePaper> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
-    private final Controller controller;
     
-    public Talker (Controller c){
-        this.controller = c;
+    public Talker(){
+        loadInfos();
     }
     
     public void runServer() {
@@ -40,7 +44,7 @@ public class Talker implements RemoteMethods{
             String name = "server";
             System.setProperty("java.rmi.server.hostname", "192.168.1.6");  
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            RemoteMethods remote = new Talker(controller);
+            RemoteMethods remote = new Talker();
             RemoteMethods stub = (RemoteMethods) UnicastRemoteObject.exportObject(remote, 0);
             registry.rebind(name, stub);
             System.out.println("Servidor rodando no IP " + InetAddress.getLocalHost().getHostAddress() + " e na porta " + Registry.REGISTRY_PORT);
@@ -62,15 +66,14 @@ public class Talker implements RemoteMethods{
             }
         }
         temp.addAvaliation(avaliation);
-<<<<<<< HEAD
-        //implementar quando a média for menor que o desejado
-=======
->>>>>>> f4c4baeb874ba9537f1da76adda819628c26c1f9
+        if(temp.getAvg() < 2.5){
+                   
+        }
         return temp.getAvg();
     }
 
     @Override
-    public float giveAvg(int id) throws RemoteException {
+    public boolean giveAvg(int id) throws RemoteException {
         float avg = 0;
         for(int i = 0; i<news.size();i++){
             News oneSec = news.get(i);
@@ -79,6 +82,12 @@ public class Talker implements RemoteMethods{
                 break;
             }
         }
-        return avg;
+        return avg >= 2.5;
+    }
+    
+    public void loadInfos(){
+        Txt reader = new Txt();
+        reader.ReadNews();
+        reader.ReadServers();
     }
 }

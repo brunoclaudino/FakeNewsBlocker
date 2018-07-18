@@ -6,22 +6,33 @@
 
 package util;
 
+import controller.Talker;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.RemoteMethods;
 
 /**
  * 
  * @author Bruno Claudino Matias
  */
 public class Consensus implements Runnable{
-    private int id;
+    private String serverAddress;
     
-    public Consensus(int idn){
-        this.id = idn;
+    public Consensus(String ip){
+        this.serverAddress = ip;
     }
     @Override
     public void run() {
+        try{
+            RemoteMethods server = new Talker();
+            
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
+        
+        
+        
         LinkedList<Boolean> fake = new LinkedList();
         LinkedList<Boolean> isTrue = new LinkedList();
         try {

@@ -15,5 +15,5 @@ import java.rmi.RemoteException;
 public interface RemoteMethods extends Remote{
     public float addAvaliation(float avaliation, int id)throws RemoteException;
     
-    public float giveAvg(int id)throws RemoteException;
+    public boolean giveAvg(int id)throws RemoteException;
 }
