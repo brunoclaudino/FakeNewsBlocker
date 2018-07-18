@@ -10,15 +10,12 @@ import controller.Talker;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.RemoteMethods;
 import model.VotePaper;
 
 /**
  * 
- * @author Bruno Claudino Matias
+ * @author 
  */
 public class Consensus implements Runnable{
     private int serverAddress;
