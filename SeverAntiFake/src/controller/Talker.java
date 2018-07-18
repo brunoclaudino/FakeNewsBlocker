@@ -33,10 +33,6 @@ public class Talker implements RemoteMethods {
     public static LinkedList<VotePaper> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
 
-    public Talker() {
-        loadInfos();
-    }
-
     public void runServer() {
         try {
             String name = servers.getFirst().getName();
