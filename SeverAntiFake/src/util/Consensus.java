@@ -7,56 +7,45 @@
 package util;
 
 import controller.Talker;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.RemoteMethods;
+import model.VotePaper;
 
 /**
  * 
  * @author Bruno Claudino Matias
  */
 public class Consensus implements Runnable{
-    private String serverAddress;
+    private int serverAddress;
+    private int id;
     
-    public Consensus(String ip){
-        this.serverAddress = ip;
+    public Consensus(int location, int id){
+        this.serverAddress = location;
+        this.id = id;
     }
     @Override
     public void run() {
         try{
             RemoteMethods server = new Talker();
-            
+            if(controller.Talker.debug){
+                System.out.println("Instânciou interface de métodos | Classe consensus - Método Run");
+            }
+            Registry registry = LocateRegistry.getRegistry();
+            RemoteMethods service = (RemoteMethods) Naming.lookup(view.Main.serverNames.get(serverAddress));
+            if(controller.Talker.debug){
+                System.out.println("lookup está funcionando");
+            }
+            VotePaper paper = new VotePaper();
+            paper.setInnocent(service.giveAvg(id));
+            paper.setId(id);
+            controller.Talker.conf.add(paper);
         }catch(Exception e){
             System.out.println(e.toString());
         }
-        
-        
-        
-        LinkedList<Boolean> fake = new LinkedList();
-        LinkedList<Boolean> isTrue = new LinkedList();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Consensus.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(int i = 0; i<controller.Talker.conf.size();i++){
-            if(controller.Talker.conf.get(i).getId() == this.id){
-                if(controller.Talker.conf.get(i).isInnocent()){
-                    isTrue.add(true);
-                }else{
-                    fake.add(false);
-                }
-            }
-        }
-        if(isTrue.size()<fake.size() || isTrue.size() == fake.size()){
-            //implementar smtp
-        }
-        for(int i = 0; i<controller.Talker.conf.size();i++){
-            if(controller.Talker.conf.get(i).getId() == this.id){
-                controller.Talker.conf.remove(i);
-            }
-        }
     }
-
 }

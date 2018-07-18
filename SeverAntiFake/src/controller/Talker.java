@@ -23,6 +23,7 @@ import model.News;
 import model.RemoteMethods;
 import model.Server;
 import model.VotePaper;
+import util.Consensus;
 import util.Txt;
 
 /**
@@ -34,14 +35,15 @@ public class Talker implements RemoteMethods{
     public static LinkedList<Server> servers = new LinkedList();
     public static LinkedList<VotePaper> conf = new LinkedList();
     public static LinkedList<News> news = new LinkedList();
+
     
     public Talker(){
         loadInfos();
     }
     
-    public void runServer() {
+    public void runServer(String name) {
         try {
-            String name = "server";
+            //String name = "server";
             System.setProperty("java.rmi.server.hostname", "192.168.1.6");  
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             RemoteMethods remote = new Talker();
@@ -67,7 +69,33 @@ public class Talker implements RemoteMethods{
         }
         temp.addAvaliation(avaliation);
         if(temp.getAvg() < 2.5){
-                   
+            LinkedList<Boolean> fake = new LinkedList();
+            LinkedList<Boolean> isTrue = new LinkedList();
+            new Thread(new Consensus(1, id)).start();
+            new Thread(new Consensus(2, id)).start();
+            try{
+                Thread.sleep(1000);
+                for(int i = 0; i<controller.Talker.conf.size();i++){
+                if(conf.get(i).getId() == id){
+                    if(conf.get(i).isInnocent()){
+                        isTrue.add(true);
+                    }else{
+                        fake.add(false);
+                    }
+                }
+                 if(isTrue.size()<fake.size() || isTrue.size() == fake.size()){
+                //implementar smtp
+            }
+                for(int i = 0; i<controller.Talker.conf.size();i++){
+                    if(conf.get(i).getId() == id){
+                        conf.remove(i);
+                    }
+                }
+            }
+            }catch(Exception e){
+                System.out.println(e.toString()+ "---No metodo addAvaliation");
+            }
+
         }
         return temp.getAvg();
     }
