@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package view;
 
 /**
  *
  * @author 
  */
-public class ClientAntiFake {
-
-    /**
-     * @param args the command line arguments
-     */
+public class Main {
     public static void main(String[] args) {
-        // TODO code application logic here
+        Operacoes op = new Operacoes();
     }
     
 }
