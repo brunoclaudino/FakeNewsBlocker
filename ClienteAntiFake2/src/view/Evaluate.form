@@ -141,7 +141,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="D:\victo\Desktop\Google Drive\Ecomp\4&#xba; semestre\MI - Concorr&#xea;ncia e conectividade\4&#xba; problema\Interface\Possibilidades de avalia&#xe7;&#xe3;o\Zero_stars.png"/>
+          <Image iconType="3" name="/images/Zero_stars.png"/>
         </Property>
       </Properties>
       <Constraints>

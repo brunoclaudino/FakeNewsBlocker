@@ -24,7 +24,7 @@ public class Controller {
     private final LinkedList<Server> servers;
     private int choosenSite;
     private final RMIClient intermediator;
-    private boolean conected = false;
+    private boolean [] conected = {false, false, false};
     String answer;
 
     public Controller() {
@@ -35,10 +35,18 @@ public class Controller {
         readInfo("news");
     }
     
-    public String conectar(){
+    public void connect(){
+        setConnection(0);
+        setConnection(1);
+        setConnection(2);
+    }
+    
+    private String setConnection(int site){
+        this.setChoosenSite(site);
         String conexao = intermediator.conect();
         if(conexao.equals("success"))
-            conected = true;
+            conected[choosenSite] = true;
+        
         return conexao;
     }
 
@@ -70,14 +78,15 @@ public class Controller {
     }
     
     public String sendAvaliation(float avaliation, int newsId){
-        if(conected == true){
+        if(conected[choosenSite] == true){
+            System.out.println("Vou avaliar");
             intermediator.sendAvaliation(avaliation, newsId);
             return "send with success";
         }
         else{
-            answer = conectar();
+            answer = setConnection(choosenSite);
             if(answer.equals("success")){
-                conected = true;
+                conected[choosenSite] = true;
                 return this.sendAvaliation(avaliation, newsId);
             }
             else

@@ -38,6 +38,8 @@ public class RMIClient{
     public String conect() {
         try {
             String name = controller.getServerName();
+            System.out.println(controller.getServerName());
+            System.out.println(controller.getServerAdress());
             Registry registry = LocateRegistry.getRegistry(controller.getServerAdress(), Registry.REGISTRY_PORT);
             remote = (RemoteMethods) registry.lookup(name);
             return "success";

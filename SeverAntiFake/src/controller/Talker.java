@@ -20,7 +20,6 @@ import model.Server;
 import model.VotePaper;
 import util.Consensus;
 import util.MailSender;
-import util.Txt;
 
 /**
  *
@@ -29,18 +28,17 @@ import util.Txt;
 public class Talker implements RemoteMethods {
 
     public static boolean debug = true;
-    public static LinkedList<Server> servers = new LinkedList();
-    public static LinkedList<VotePaper> conf = new LinkedList();
-    public static LinkedList<News> news = new LinkedList();
+    public FileManager f = FileManager.getInstance();
 
     public void runServer() {
         try {
-            String name = servers.getFirst().getName();
-            System.setProperty("java.rmi.server.hostname", "192.168.1.6");
+            Server s = (Server) f.getServers().getFirst();
+            String name = s.getName();
+            System.setProperty("java.rmi.server.hostname", "127.0.0.1");
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             RemoteMethods remote = new Talker();
             RemoteMethods stub = (RemoteMethods) UnicastRemoteObject.exportObject(remote, 0);
-            registry.rebind(servers.getFirst().getName(), stub);
+            registry.rebind(name, stub);
             System.out.println("Servidor rodando no IP " + InetAddress.getLocalHost().getHostAddress() + " e na porta " + Registry.REGISTRY_PORT);
         } catch (RemoteException e) {
             System.out.println("Erro no servidor: " + e.getMessage());
@@ -51,9 +49,10 @@ public class Talker implements RemoteMethods {
 
     @Override
     public float addAvaliation(float avaliation, int id) throws RemoteException {
+        System.out.println("Avaliação: " + avaliation + "\nId: " + id);
         News temp = new News();
-        for (int i = 0; i < news.size(); i++) {
-            News oneSec = news.get(i);
+        for (int i = 0; i < f.getNews().size(); i++) {
+            News oneSec = (News) f.getNews().get(i);
             if (oneSec.getId() == id) {
                 temp = oneSec;
                 break;
@@ -63,13 +62,17 @@ public class Talker implements RemoteMethods {
         if (temp.getAvg() < 2.5) {
             LinkedList<Boolean> fake = new LinkedList();
             LinkedList<Boolean> isTrue = new LinkedList();
+            VotePaper myVote = new VotePaper(0, false);
+            f.getVotes().add(myVote);
             new Thread(new Consensus(1, id)).start();
             new Thread(new Consensus(2, id)).start();
             try {
                 Thread.sleep(1000);
-                for (int i = 0; i < controller.Talker.conf.size(); i++) {
-                    if (conf.get(i).getId() == id) {
-                        if (conf.get(i).isInnocent()) {
+                for (int i = 0; i < f.getVotes().size(); i++) {
+                    VotePaper vote = (VotePaper) f.getVotes().get(i);
+                    int voteId = vote.getId();
+                    if (voteId == id) {
+                        if (vote.isInnocent()) {
                             isTrue.add(true);
                         } else {
                             fake.add(false);
@@ -77,15 +80,12 @@ public class Talker implements RemoteMethods {
                     }
                     if (isTrue.size() < fake.size() || isTrue.size() == fake.size()) {
                         MailSender mail = new MailSender();
-                        mail.sendEmail(temp.getTitle());
+                        mail.setNewsTitle(temp.getTitle());
+                        new Thread(mail).start();
                     }
-                    for (i = 0; i < conf.size(); i++) {
-                        if (conf.get(i).getId() == id) {
-                            conf.remove(i);
-                        }
-                    }
+                    f.setVotes(new LinkedList());
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 System.out.println(e.toString() + "---No metodo addAvaliation");
             }
 
@@ -96,19 +96,13 @@ public class Talker implements RemoteMethods {
     @Override
     public boolean giveAvg(int id) throws RemoteException {
         float avg = 0;
-        for (int i = 0; i < news.size(); i++) {
-            News oneSec = news.get(i);
+        for (int i = 0; i < f.getNews().size(); i++) {
+            News oneSec = (News) f.getNews().get(i);
             if (oneSec.getId() == id) {
                 avg = oneSec.getAvg();
                 break;
             }
         }
         return avg >= 2.5;
-    }
-
-    public void loadInfos() {
-        Txt reader = new Txt();
-        reader.ReadNews();
-        reader.ReadServers();
     }
 }

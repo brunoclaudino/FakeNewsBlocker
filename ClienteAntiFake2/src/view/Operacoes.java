@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
 public class Operacoes implements ActionListener {
 
     private Sites news;
-    private Controller controller;
-    private String[] sites = {"BBC", "CBS", "CNN"};
+    private final Controller controller;
+    private final String[] sites = {"BBC", "CBS", "CNN"};
     private int openNews = -1;
-    private Evaluate evaluateForm = new Evaluate(this);
+    private final Evaluate evaluateForm = new Evaluate(this);
     private float average = -1;
 
     public Operacoes() {
@@ -34,6 +34,7 @@ public class Operacoes implements ActionListener {
         news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/App_page.png")));
         news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar+nav.png")));
         controller = new Controller();
+        controller.connect();
         Thread controlarHora = new Thread() {
             @Override
             public void run() {
@@ -191,8 +192,15 @@ public class Operacoes implements ActionListener {
             evaluateForm.repaint();
             average = 5;
         } else if (e.getSource().equals(evaluateForm.getSend())) {
-            controller.sendAvaliation(average, openNews);
+            String answer = controller.sendAvaliation(average, openNews);
+            if(answer.equals("send with success")){
+                JOptionPane.showMessageDialog(news, "Your evaluation was send! Thank you for you time!");
+            }
+            else{
+                JOptionPane.showMessageDialog(news, "Unfortunately we didn't make to connect to our server. Sorry :/");
+            }
             evaluateForm.setVisible(false);
+            evaluateForm.getjLabel1().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Zero_stars.png")));
         } else if (e.getSource().equals(news.getEvaluate())) {
             evaluateForm.setVisible(true);
         }

@@ -13,6 +13,7 @@ import controller.Talker;
  */
 public class Main {
     private static final Talker t = new Talker();
+    
     public static void main(String[] args) {
         t.runServer();
     }

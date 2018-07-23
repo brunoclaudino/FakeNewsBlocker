@@ -6,6 +6,7 @@
 
 package util;
 
+import controller.FileManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ import model.Server;
 public class Txt {
     private BufferedReader read;
     private BufferedWriter write;
+    private FileManager f = FileManager.getInstance();
     
     public void ReadServers(){
         try {
@@ -36,7 +38,7 @@ public class Txt {
                 String[] infos = line.split("=");
                 server.setName(infos[0]);
                 server.setAddress(infos[1]);
-                controller.Talker.servers.add(server);
+                f.getServers().add(server);
                 line = read.readLine();
                         
             }
@@ -60,7 +62,7 @@ public class Txt {
                 temp.setId(Integer.parseInt(info[0]));
                 temp.setTitle(info[1]);
                 temp.setRealAvg(Float.parseFloat(info[2]));
-                controller.Talker.news.add(temp);
+                f.getNews().add(temp);
                 line = read.readLine();
             }
         } catch (FileNotFoundException ex) {

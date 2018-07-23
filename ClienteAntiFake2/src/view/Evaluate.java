@@ -145,7 +145,7 @@ public class Evaluate extends javax.swing.JFrame {
         });
         getContentPane().add(send, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\victo\\Desktop\\Google Drive\\Ecomp\\4º semestre\\MI - Concorrência e conectividade\\4º problema\\Interface\\Possibilidades de avaliação\\Zero_stars.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Zero_stars.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 210));
 
         pack();

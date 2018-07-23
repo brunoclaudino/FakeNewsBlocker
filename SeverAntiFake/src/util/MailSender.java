@@ -7,6 +7,8 @@ package util;
 
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,16 +25,16 @@ import javax.mail.internet.MimeMessage;
  *
  * @author 
  */
-public class MailSender {
+public class MailSender implements Runnable {
+    
+    private String newsTitle;
 
     /**
-     * Método para fazer o envio de um email contendo a fatura máxima de um
-     * cliente ou para alertá-lo que o consumo máximo foi atingido
+     * Método para fazer o envio de um email 
      *
-     * @param newsTitle
      * @throws javax.mail.MessagingException
      */
-    public void sendEmail(String newsTitle) throws MessagingException {
+    public void sendEmail() throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -45,7 +47,7 @@ public class MailSender {
         MimeBodyPart mbp = new MimeBodyPart();
         try {
             msg.setFrom(new InternetAddress("testepbl.redes@gmail.com"));
-            Address[] toUser = InternetAddress.parse("stanley@uefs.br");
+            Address[] toUser = InternetAddress.parse("bruninho.cmatias@gmail.com");
             msg.setRecipients(Message.RecipientType.TO, toUser);
             msg.setSentDate(new Date());
             msg.setSubject("Alerta de Fake News: Notícia \" " + newsTitle + " \" ");
@@ -66,6 +68,19 @@ public class MailSender {
         p.put("mail.smtp.host", "smtp.gmail.com");
         p.put("mail.smtp.auth", "true");
         return p;
+    }
+
+    public void setNewsTitle(String newsT){
+        this.newsTitle = newsT;
+    }
+    
+    @Override
+    public void run() {
+        try {
+            sendEmail();
+        } catch (MessagingException ex) {
+            Logger.getLogger(MailSender.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     class SMTPAuthenticator extends javax.mail.Authenticator {

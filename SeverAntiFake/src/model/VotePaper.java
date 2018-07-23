@@ -12,6 +12,15 @@ package model;
 public class VotePaper {
     private int id;
     private boolean innocent;
+    
+    public VotePaper(int id, boolean vote){
+        this.id = id;
+        this.innocent = vote;
+    }
+    
+    public VotePaper(){
+        
+    }
 
     public int getId() {
         return id;
