@@ -6,13 +6,14 @@
 
 package model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * 
  * @author Bruno Claudino Matias
  */
-public class News {
+public class News implements Serializable{
     private int id;
     private String title;
     private float realAvg;

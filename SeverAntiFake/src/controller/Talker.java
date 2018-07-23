@@ -20,10 +20,11 @@ import model.Server;
 import model.VotePaper;
 import util.Consensus;
 import util.MailSender;
+import util.Txt;
 
 /**
  *
- * @author
+ * @author Uma dupla de 1.
  */
 public class Talker implements RemoteMethods {
 
@@ -90,6 +91,9 @@ public class Talker implements RemoteMethods {
             }
 
         }
+        Txt t = new Txt();
+        t.serializeList();
+        System.err.println("Victória está parecendo gente!!!!!");
         return temp.getAvg();
     }
 

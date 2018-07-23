@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.File;
 import java.util.LinkedList;
 import model.News;
 import model.Server;
@@ -31,7 +32,13 @@ public class FileManager {
     
     public void loadInfos() {
         Txt reader = new Txt();
-        reader.ReadNews();
+        File f = new File("listaNews.ser");
+        if(!f.exists()){
+            reader.ReadNews();
+        }
+        else{
+            news = reader.readList();
+        }
         reader.ReadServers();
     }
     
