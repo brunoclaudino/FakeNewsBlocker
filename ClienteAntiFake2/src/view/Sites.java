@@ -43,6 +43,7 @@ public class Sites extends javax.swing.JFrame {
         page4.addActionListener(op);
         page5.addActionListener(op);
         back.addActionListener(op);
+        evaluate.addActionListener(op);
         
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -124,6 +125,10 @@ public class Sites extends javax.swing.JFrame {
         return page1;
     }
 
+    public JButton getEvaluate() {
+        return evaluate;
+    }
+    
     public JButton getPage2() {
         return page2;
     }
@@ -170,6 +175,7 @@ public class Sites extends javax.swing.JFrame {
         bottonLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        evaluate = new javax.swing.JButton();
         page5 = new javax.swing.JButton();
         page4 = new javax.swing.JButton();
         page3 = new javax.swing.JButton();
@@ -222,6 +228,17 @@ public class Sites extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        evaluate.setForeground(java.awt.Color.blue);
+        evaluate.setText("Evaluate news");
+        evaluate.setBorderPainted(false);
+        evaluate.setContentAreaFilled(false);
+        evaluate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                evaluateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(evaluate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 120, -1));
+
         page5.setBorderPainted(false);
         page5.setContentAreaFilled(false);
         jPanel1.add(page5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 580, 30, 20));
@@ -266,7 +283,7 @@ public class Sites extends javax.swing.JFrame {
         news6.setContentAreaFilled(false);
         jPanel1.add(news6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 780, 180, 30));
 
-        site_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/BBC_news1.1.png"))); // NOI18N
+        site_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/BBC_news1.5.png"))); // NOI18N
         jPanel1.add(site_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
@@ -277,6 +294,10 @@ public class Sites extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void evaluateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_evaluateActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBC;
     private javax.swing.JButton CBS;
@@ -284,6 +305,7 @@ public class Sites extends javax.swing.JFrame {
     private javax.swing.JButton Home;
     private javax.swing.JButton back;
     private javax.swing.JLabel bottonLabel;
+    private javax.swing.JButton evaluate;
     private javax.swing.JLabel hour;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
