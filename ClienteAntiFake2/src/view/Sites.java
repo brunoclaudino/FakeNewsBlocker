@@ -25,7 +25,7 @@ public class Sites extends javax.swing.JFrame {
      * Creates new form Sites
      */
     public Sites(Operacoes op) {
-        setUndecorated(true);
+//        setUndecorated(true);
         initComponents();
         BBC.addActionListener(op);
         CNN.addActionListener(op);
@@ -42,6 +42,7 @@ public class Sites extends javax.swing.JFrame {
         page3.addActionListener(op);
         page4.addActionListener(op);
         page5.addActionListener(op);
+        back.addActionListener(op);
         
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -138,6 +139,15 @@ public class Sites extends javax.swing.JFrame {
     public JButton getPage5() {
         return page5;
     } 
+
+    public JButton getBack() {
+        return back;
+    }
+
+    public JLabel getHour() {
+        return this.hour;
+    }
+    
     
     
 
@@ -150,11 +160,13 @@ public class Sites extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        hour = new javax.swing.JLabel();
         Home = new javax.swing.JButton();
         BBC = new javax.swing.JButton();
         CNN = new javax.swing.JButton();
         CBS = new javax.swing.JButton();
         topLabel = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
         bottonLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -175,6 +187,11 @@ public class Sites extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        hour.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        hour.setForeground(java.awt.Color.white);
+        hour.setText("00:00");
+        getContentPane().add(hour, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 50, 30));
+
         Home.setBorderPainted(false);
         Home.setContentAreaFilled(false);
         getContentPane().add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 50, 70));
@@ -193,6 +210,10 @@ public class Sites extends javax.swing.JFrame {
 
         topLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/top_bar.png"))); // NOI18N
         getContentPane().add(topLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        back.setBorderPainted(false);
+        back.setContentAreaFilled(false);
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 780, -1, 30));
 
         bottonLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/bbcBar+nav.png"))); // NOI18N
         getContentPane().add(bottonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, -1, -1));
@@ -215,7 +236,7 @@ public class Sites extends javax.swing.JFrame {
 
         page2.setBorderPainted(false);
         page2.setContentAreaFilled(false);
-        jPanel1.add(page2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 500, 10, 10));
+        jPanel1.add(page2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 500, 30, 10));
 
         page1.setBorderPainted(false);
         page1.setContentAreaFilled(false);
@@ -245,7 +266,7 @@ public class Sites extends javax.swing.JFrame {
         news6.setContentAreaFilled(false);
         jPanel1.add(news6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 780, 180, 30));
 
-        site_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/BBC_page.png"))); // NOI18N
+        site_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/BBC_news1.1.png"))); // NOI18N
         jPanel1.add(site_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
@@ -261,7 +282,9 @@ public class Sites extends javax.swing.JFrame {
     private javax.swing.JButton CBS;
     private javax.swing.JButton CNN;
     private javax.swing.JButton Home;
+    private javax.swing.JButton back;
     private javax.swing.JLabel bottonLabel;
+    private javax.swing.JLabel hour;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton news1;

@@ -8,6 +8,10 @@ package view;
 import controller.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +19,6 @@ import java.awt.event.ActionListener;
  */
 public class Operacoes implements ActionListener {
 
-    private Home app;
     private Sites news;
     private Controller controller;
     private String[] sites = {"BBC", "CBS", "CNN"};
@@ -23,41 +26,69 @@ public class Operacoes implements ActionListener {
 
     public Operacoes() {
         news = new Sites(this);
-        app = new Home(this);
+        disableAll();
+        news.setVisible(true);
+        news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/App_page.png")));
+        news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar+nav.png")));
         controller = new Controller();
-        app.setVisible(true);
+        Thread controlarHora = new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    String horario;
+                    Calendar calendar = new GregorianCalendar();
+                    Date trialTime = new Date();
+                    calendar.setTime(trialTime);
+                    if(calendar.get(Calendar.MINUTE)<10 && calendar.get(Calendar.HOUR_OF_DAY)<10){
+                        horario = "0" + calendar.get(Calendar.HOUR_OF_DAY) + ":0" + calendar.get(Calendar.MINUTE);
+                    }
+                    else if(calendar.get(Calendar.MINUTE)<10){
+                        horario = calendar.get(Calendar.HOUR_OF_DAY) + ":0" + calendar.get(Calendar.MINUTE);
+                    }
+                    else if(calendar.get(Calendar.HOUR_OF_DAY)<10){
+                        horario = "0" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+                    }
+                    else{
+                        horario = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+                    }
+                    news.getHour().setText(horario);
+                }
+            }
+        };
+        controlarHora.run();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(app.getBBC()) || e.getSource().equals(news.getBBC())) {
-            app.setVisible(false);
+        if (e.getSource().equals(news.getBBC())) {
             news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/BBC_page.png")));
             news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/BBC/bbcBar+nav.png")));
             news.setVisible(true);
-            repaintWindows();
+            news.repaint();
             controller.setChoosenSite(0);
             openNews = -1;
-        } else if (e.getSource().equals(app.getCBS()) || e.getSource().equals(news.getCBS())) {
-            app.setVisible(false);
+            enableButtons();
+        } else if (e.getSource().equals(news.getCBS())) {
             news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/CBS/CBS_page.png")));
             news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/CBS/cbsBar+nav.png")));
             news.setVisible(true);
-            repaintWindows();
+            news.repaint();
             controller.setChoosenSite(1);
             openNews = -1;
-        } else if (e.getSource().equals(app.getCNN()) || e.getSource().equals(news.getCNN())) {
-            app.setVisible(false);
+            enableButtons();
+        } else if (e.getSource().equals(news.getCNN())) {
             news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/CNN/CNN_page.png")));
             news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/CNN/cnnBar+nav.png")));
             news.setVisible(true);
-            repaintWindows();
+            news.repaint();
             controller.setChoosenSite(2);
             openNews = -1;
+            enableButtons();
         } else if (e.getSource().equals(news.getHome())) {
-            news.setVisible(false);
-            app.setVisible(true);
-            repaintWindows();
+            disableAll();
+            news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/App_page.png")));
+            news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar+nav.png")));
+            news.repaint();
             openNews = -1;
         } else if (e.getSource().equals(news.getNews1())) {
             getNews(1);
@@ -69,7 +100,7 @@ public class Operacoes implements ActionListener {
             getNews(4);
         } else if (e.getSource().equals(news.getNews5())) {
             getNews(5);
-        } else if (e.getSource().equals(news.getNews5())) {
+        } else if (e.getSource().equals(news.getNews6())) {
             getNews(6);
         } else if (e.getSource().equals(news.getPage1())) {
             getPages(1);
@@ -81,29 +112,18 @@ public class Operacoes implements ActionListener {
             getPages(4);
         } else if (e.getSource().equals(news.getPage5())) {
             getPages(5);
+        } else if (e.getSource().equals(news.getBack())) {
+            if (openNews == -1) {
+                disableAll();
+                news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/App_page.png")));
+                news.getBottonLabel().setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar+nav.png")));
+                news.repaint();
+            } else {
+                String choice = sites[controller.getChoosenSite()];
+                news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/" + choice + "/" + choice + "_page.png")));
+                enableButtons();
+            }
         }
-
-//       
-//        else if(e.getSource().equals(google.getMinimizeButton())){
-//            google.setExtendedState(JFrame.ICONIFIED);
-//        }
-//        else if(e.getSource().equals(google.getGoogleSearch())){
-//            String texto = google.getSearch().getText();
-//            if(texto.equals("noticias") || texto.equals("site de noticias")){
-//                search = new Search();
-//                search.getSearchBox().setText(texto);
-//                google.setVisible(false);
-//                search.setVisible(true);
-//            }
-//        }
-//        else if(e.getSource().equals(google.getImLucky())){
-//            JOptionPane.showMessageDialog(google, "Não, você não tá com sorte. Agora usa o outro botão :)");
-//        }
-    }
-
-    public void repaintWindows() {
-        news.repaint();
-        app.repaint();
     }
 
     public void disableButtons() {
@@ -113,6 +133,11 @@ public class Operacoes implements ActionListener {
         news.getNews4().setEnabled(false);
         news.getNews5().setEnabled(false);
         news.getNews6().setEnabled(false);
+        news.getPage1().setEnabled(true);
+        news.getPage2().setEnabled(true);
+        news.getPage3().setEnabled(true);
+        news.getPage4().setEnabled(true);
+        news.getPage5().setEnabled(true);
     }
 
     public void enableButtons() {
@@ -122,13 +147,32 @@ public class Operacoes implements ActionListener {
         news.getNews4().setEnabled(true);
         news.getNews5().setEnabled(true);
         news.getNews6().setEnabled(true);
+        news.getPage1().setEnabled(false);
+        news.getPage2().setEnabled(false);
+        news.getPage3().setEnabled(false);
+        news.getPage4().setEnabled(false);
+        news.getPage5().setEnabled(false);
+    }
+
+    public void disableAll() {
+        news.getNews1().setEnabled(false);
+        news.getNews2().setEnabled(false);
+        news.getNews3().setEnabled(false);
+        news.getNews4().setEnabled(false);
+        news.getNews5().setEnabled(false);
+        news.getNews6().setEnabled(false);
+        news.getPage1().setEnabled(false);
+        news.getPage2().setEnabled(false);
+        news.getPage3().setEnabled(false);
+        news.getPage4().setEnabled(false);
+        news.getPage5().setEnabled(false);
     }
 
     public void getNews(int newsNumber) {
         disableButtons();
         String choice = sites[controller.getChoosenSite()];
         news.getSite_label().setIcon(new javax.swing.ImageIcon(getClass().getResource("/" + choice + "/" + choice + "_news" + newsNumber + ".1.png")));
-        repaintWindows();
+        news.repaint();
         openNews = newsNumber;
     }
 
