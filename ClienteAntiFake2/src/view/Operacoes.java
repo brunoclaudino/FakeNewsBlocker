@@ -129,6 +129,9 @@ public class Operacoes implements ActionListener {
             average = -1;
         } else if (e.getSource().equals(news.getPage2())) {
             disableEvaluate();
+            if(openNews == 5){
+                enableEvaluate();
+            }
             getPages(2);
             average = -1;
         } else if (e.getSource().equals(news.getPage3())) {
@@ -193,10 +196,9 @@ public class Operacoes implements ActionListener {
             average = 5;
         } else if (e.getSource().equals(evaluateForm.getSend())) {
             String answer = controller.sendAvaliation(average, openNews);
-            if(answer.equals("send with success")){
+            if (answer.equals("send with success")) {
                 JOptionPane.showMessageDialog(news, "Your evaluation was send! Thank you for you time!");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(news, "Unfortunately we didn't make to connect to our server. Sorry :/");
             }
             evaluateForm.setVisible(false);
