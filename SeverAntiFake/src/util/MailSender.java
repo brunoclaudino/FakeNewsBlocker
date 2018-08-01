@@ -47,7 +47,7 @@ public class MailSender implements Runnable {
         MimeBodyPart mbp = new MimeBodyPart();
         try {
             msg.setFrom(new InternetAddress("testepbl.redes@gmail.com"));
-            Address[] toUser = InternetAddress.parse("bruninho.cmatias@gmail.com");
+            Address[] toUser = InternetAddress.parse("stanley@uefs.br");
             msg.setRecipients(Message.RecipientType.TO, toUser);
             msg.setSentDate(new Date());
             msg.setSubject("Alerta de Fake News: Notícia \" " + newsTitle + " \" ");
